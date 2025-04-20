@@ -1,3 +1,3 @@
 module.exports = {
-  WEB_CLIENT_ID: "804481832040-q7lj5bbqtckl7gk0ava9221edevsqboi.apps.googleusercontent.com"
+  WEB_CLIENT_ID: "528183681954-eeei6ob5unbj8vvt9rfj9b0lhi653677.apps.googleusercontent.com"
 };

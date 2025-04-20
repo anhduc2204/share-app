@@ -40,6 +40,15 @@ const Overview = (props) => {
   const Colors = Themes[isDarkTheme ? 'darkMode' : 'lightMode'];
   const styles = createStyles(isDarkTheme, dimensions.width, dimensions.height);
 
+  const renderHeader = () => (
+    <></>
+  )
+
+  const renderContent = () => (
+    <View>
+      <Text>Hello world</Text>
+    </View>
+  )
 
   return (
     <>

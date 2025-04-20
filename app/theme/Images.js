@@ -49,7 +49,7 @@ export default {
   icCancelDelete: require('@app/assets/images/ic_cancel_delete.png'),
   icOpenBook: require('@app/assets/images/ic_open_book.png'),
   //
-
+  icHistory: require('@app/assets/images/ic_history.png'),
   //
 
 };

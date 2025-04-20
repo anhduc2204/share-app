@@ -43,7 +43,7 @@ export const ThemeProvider = ({ children }) => {
         }
       } else {
         // setIsDarkTheme(deviceTheme === 'dark');
-        setIsDarkTheme(true);
+        setIsDarkTheme(false);
       }
     };
     loadStoredTheme();

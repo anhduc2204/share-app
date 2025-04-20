@@ -42,17 +42,17 @@ const Footer = (props) => {
                 <Image source={Images.icHome} style={styles.icLarge} />
                 <Text style={styles.textFooter}>{i18n.t(`overview.home`)}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Filter')}>
-                <Image source={Images.icBook} style={styles.icLarge} />
-                <Text style={styles.textFooter}>{i18n.t(`overview.classify`)}</Text>
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
+                <Image source={Images.icHistory} style={styles.icLarge} />
+                <Text style={styles.textFooter}>Lịch sử</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter}>
-                <Image source={Images.icRank} style={styles.icMedium} />
-                <Text style={styles.textFooter}>{i18n.t(`overview.rank`)}</Text>
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
+                <Image source={Images.icHistory} style={styles.icLarge} />
+                <Text style={styles.textFooter}>Xem sau</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Bookcases')}>
-                <Image source={Images.icStorage} style={styles.icMedium} />
-                <Text style={styles.textFooter}>{i18n.t(`overview.bookStorage`)}</Text>
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
+                <Image source={Images.icHistory} style={styles.icLarge} />
+                <Text style={styles.textFooter}>Tin nhắn</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Profile')}>
                 <Image source={Images.icUser} style={styles.icMedium} />
