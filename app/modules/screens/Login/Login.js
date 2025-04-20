@@ -26,6 +26,7 @@ import { useAuth } from "@app/modules/components/context/AuthContext";
 import { useLogin } from "@app/hooks/book.hook";
 import storage from "../../../libs/storage";
 import { storageKeys } from "../../../libs/constants";
+import { createUser, getUser } from "../../../service/userService";
 
 
 const Login = (props) => {
@@ -55,21 +56,29 @@ const Login = (props) => {
   const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const { data } = await GoogleSignin.signIn();
-      console.log('login ----- : ', JSON.stringify(data.idToken));
-      const googleCredential = auth.GoogleAuthProvider.credential(data.idToken);
+      const responseGoogleSignin = await GoogleSignin.signIn();
+      console.log('login ----- : ', JSON.stringify(responseGoogleSignin));
+      const googleCredential = auth.GoogleAuthProvider.credential(responseGoogleSignin.idToken);
       await auth().signInWithCredential(googleCredential);
 
       const user = auth().currentUser;
       const freshToken = await user.getIdToken(true);
       console.log('user: ', JSON.stringify(user));
-      const responeLogin = await fetchLogin.mutateAsync({ token: freshToken });
-      if (responeLogin.status === 'success') {
-        console.log('responeLogin: ', JSON.stringify(responeLogin));
-        storage.set(storageKeys.ACCESS_TOKEN, responeLogin.data.token)
-      } else {
-        await GoogleSignin.signOut();
-        await auth().signOut();
+      const responseGetUser = await getUser(user.uid);
+      console.log('getUser firebase store: ', JSON.stringify(responseGetUser));
+      if (!responseGetUser) {
+        const userParam = {
+          uid: user.uid, // ID người dùng từ Firebase Auth
+          displayName: user.displayName, // Tên hiển thị
+          email: user.email, // Email
+          photoURL: user.photoURL, // URL ảnh đại diện
+          phoneNumber: user.phoneNumber ? user.phoneNumber : "", // Số điện thoại (tùy chọn)
+          address: "", // Địa chỉ (tùy chọn)
+          bio: "", // Mô tả ngắn về người dùng (tùy chọn)
+          fcmTokens: [], // Danh sách token thông báo Firebase Cloud Messaging
+        }
+        const responseCreateUser = await createUser(userParam);
+        console.log('responseCreateUser: ', JSON.stringify(responseCreateUser));
       }
       updateUser();
       handleClose();
