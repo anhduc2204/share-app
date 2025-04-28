@@ -17,6 +17,7 @@ import { WEB_CLIENT_ID } from "./config/keys";
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Profile from "./modules/screens/Profile/Profile";
 import { AuthProvider } from "./modules/components/context/AuthContext";
+import Post from "./modules/screens/Post/Post";
 
 
 const Application = (props) => {
@@ -66,6 +67,7 @@ const Application = (props) => {
                     >
                       <Stack.Screen name="Overview" component={Overview} />
                       <Stack.Screen name="Profile" component={Profile} />
+                      <Stack.Screen name="Post" component={Post} />
                     </Stack.Navigator>
                   }
                   <FlashMessage position="top" style={{ marginTop: 16 }} />

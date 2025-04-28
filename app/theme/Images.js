@@ -50,6 +50,9 @@ export default {
   icOpenBook: require('@app/assets/images/ic_open_book.png'),
   //
   icHistory: require('@app/assets/images/ic_history.png'),
+  icDropdown: require('@app/assets/images/ic_dropdown.png'),
+  icActivate: require('@app/assets/images/ic_activate.png'),
+  icMessage: require('@app/assets/images/ic_message.png'),
   //
 
 };

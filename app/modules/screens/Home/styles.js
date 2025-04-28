@@ -7,278 +7,200 @@ const createStyles = (isDarkTheme) => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: Colors.background
+            backgroundColor: Colors.backgroundGrey
         },
         ////header
         header: {
             width: width,
             backgroundColor: Colors.background,
             flexDirection: 'row',
-            alignItems: 'center',
-            paddingHorizontal: Metrics.icon / 2,
-            paddingBottom: Metrics.normal
+            // alignItems: 'center',
+            paddingLeft: Metrics.normal,
+            // paddingBottom: Metrics.normal
         },
-        headerLogo: {
-            width: Metrics.large + Metrics.tiny,
-            height: Metrics.large + Metrics.tiny,
-            marginRight: Metrics.icon / 2
-        },
-        btnSearch: {
-            flexDirection: 'row',
-            backgroundColor: Colors.thirdBackground,
-            paddingVertical: Metrics.small,
+        inputSearchView: {
             flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: Metrics.icon
+            flexDirection: 'row',
+            alignItems: 'center'
+        },
+        inputText: {
+            color: Colors.text,
+            paddingVertical: Metrics.small,
+            marginLeft: Metrics.small
         },
         icSearch: {
             width: Metrics.icon,
             height: Metrics.icon,
-            tintColor: Colors.secondaryText,
-            marginRight: Metrics.tiny
-        },
-        searchTextPlaceholder: {
-            color: Colors.secondaryText,
-            ...Fonts.regular
-        },
-        ///---------------
-        /// body
-        titleRedirectView: {
-            flexDirection: 'row',
-        },
-        btnTitleRedirect: {
-            paddingHorizontal: Metrics.normal,
-            paddingBottom: Metrics.small
-        },
-        titleRedirectText: {
-            ...Fonts.large,
-            color: Colors.textGrey
-        },
-        content: {
-            flex: 1,
-            paddingHorizontal: Metrics.icon / 2,
-            // backgroundColor: Colors.thirdBackground
-        },
-        errorView: {
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: Metrics.normal,
-            flexDirection: 'row'
-        },
-        icWarning: {
-            width: Metrics.regular,
-            height: Metrics.regular,
-            tintColor: Colors.red
-        },
-        errorText: {
-            color: Colors.red
-        },
-        scrollView: {
-            paddingBottom: Metrics.medium
-        },
-        listContent: {
-            marginTop: Metrics.regular,
-            // borderWidth: 1
-        },
-        listView: {
-            flexDirection: 'row'
-        },
-        titleList: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: Metrics.tiny,
-            alignItems: 'flex-end'
-        },
-        titleListText: {
-            ...Fonts.large,
-            color: Colors.text
-        },
-        btnMore: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-        moreText: {
-            color: Colors.blue_bland,
-            paddingLeft: Metrics.medium,
-            ...Fonts.small,
-            marginRight: Metrics.tiny
-        },
-        icArrowRight: {
-            width: Metrics.icon / 2,
-            height: Metrics.icon / 2,
-            tintColor: Colors.blue_bland
-        },
-        btnItemList: {
-            alignItems: 'flex-start'
-        },
-        imageView: {
-            backgroundColor: Colors.backgroundGrey,
-            // alignItems: 'center',
-            overflow: 'hidden',
-            borderRadius: Metrics.tiny,
-        },
-        imageNormal: {
-            height: height / 5,
-            aspectRatio: 2 / 3
-        },
-        imageDefault: {
-            height: height / 5 - Metrics.medium * 3,
-            marginVertical: Metrics.medium * 3 / 2,
-            marginHorizontal: Metrics.medium,
-            aspectRatio: 2 / 3,
-        },
-        infoItem: {
-            width: height * 2 / 15,
-            paddingTop: Metrics.tiny,
-            // paddingHorizontal: Metrics.tiny,
-        },
-        textTitle: {
-            width: '100%',
-            color: Colors.textWhite,
-            ...Fonts.tiny
-        },
-        chapterNum: {
-            ...Fonts.miniTiny,
-            color: Colors.secondaryBackground,
-        },
-        updateTime: {
-            ...Fonts.miniTiny,
-            color: Colors.textGrey,
-            fontStyle: 'italic'
-        },
-        spacer: {
-            width: Metrics.small,
-        },
-        ///
-        rankCol: {
-        },
-        rankItem: {
-            flexDirection: 'row',
-            marginBottom: Metrics.small,
-            alignItems: 'flex-start'
-        },
-        itemName: {
-            width: width / 2,
-            color: Colors.textWhite,
-            ...Fonts.medium,
-        },
-        topItemText: {
-            color: Colors.gold,
-            ...Fonts.tiny
-        },
-        imageRankView: {
-            backgroundColor: Colors.backgroundGrey,
-            alignItems: 'center',
-            overflow: 'hidden',
-            borderRadius: Metrics.tiny,
-            marginRight: Metrics.small,
-        },
-        imageRankItem: {
-            width: width / 8,
-            aspectRatio: 2 / 3,
-        },
-        imageRankDefault: {
-            width: width / 12,
-            marginHorizontal: width / 48,
-            marginVertical: width / 32,
-            aspectRatio: 2 / 3,
-        },
-        quoteView: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        icView: {
-            width: Metrics.normal,
-            height: Metrics.normal,
-            tintColor: Colors.blue_bland
-        },
-        icStarNormal: {
-            width: Metrics.normal,
-            height: Metrics.normal,
-            tintColor: Colors.secondaryBackground
-        },
-        quoteText: {
-            ...Fonts.small,
-            marginLeft: Metrics.tiny,
-            marginRight: Metrics.small
-        },
-        ratingText: {
-            color: Colors.secondaryBackground
-        },
-        viewText: {
-            color: Colors.blue_bland
-        },
-        ////
-        listReview: {
-            backgroundColor: Colors.backgroundGrey,
-            padding: Metrics.small,
-            borderRadius: Metrics.small
-        },
-        reviewItem: {
-            flexDirection: 'row',
-            marginBottom: Metrics.normal
-        },
-        icUser: {
-            width: Metrics.large,
-            height: Metrics.large,
             tintColor: Colors.textGrey
         },
-        reviewCard: {
-            backgroundColor: Colors.thirdBackground,
+        icMedium: {
+            width: Metrics.medium,
+            height: Metrics.medium,
+            tintColor: Colors.blue_bland
+        },
+        btnProfile: {
+            paddingRight: Metrics.normal,
+            paddingLeft: Metrics.icon,
+            justifyContent: 'center'
+        },
+        ///
+        content: {
             flex: 1,
-            marginLeft: Metrics.small,
-            borderRadius: Metrics.small,
-            padding: Metrics.small,
+            // paddingTop: 16,
         },
-        cardHeader: {
+        itemView: {
+            marginHorizontal: 12,
+            marginTop: 16,
+            backgroundColor: '#ffffff',
+            elevation: 2,
+            borderRadius: 8,
+            alignItems: 'flex-start',
+            overflow: 'hidden'
+        },
+        itemHeader: {
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            padding: 8,
+            alignItems: 'center',
         },
-        starView: {
-            flexDirection: 'row'
+        userName: {
+            fontWeight: 'bold',
+            color: Colors.text,
+            fontSize: 18,
+            marginLeft: 8
+        },
+        imageUser: {
+            width: 28,
+            height: 28,
+            tintColor: Colors.textGrey,
+        },
+        imageView: {
+            width: '100%',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingHorizontal: 8,
+            // borderWidth: 1
+        },
+        itemImage: {
+            width: (width - 40) / 2,
+            aspectRatio: 16 / 9
+        },
+        itemInfoView: {
+            paddingHorizontal: 8,
+            marginTop: 12
+        },
+        itemTitle: {
+            ...Helpers.textBoldfive,
+            fontSize: 16
+        },
+        itemDesc: {
+            width: '100%',
+        },
+        itemContact: {
+            marginTop: 8,
+            fontSize: 12,
+        },
+        itemAddress: {
+            fontSize: 12,
+        },
+        itemFooter: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 12,
+            paddingHorizontal: 8
         },
         icStar: {
-            width: Metrics.regular,
-            height: Metrics.regular,
-            tintColor: Colors.gold
+            width: 28,
+            height: 28,
+            tintColor: Colors.textGrey
         },
-        reviewUser: {
-            marginTop: Metrics.tiny,
-            color: Colors.textWhite,
-            ...Helpers.textBoldfive,
-            ...Fonts.small
-
-        },
-        cardHeaderRight: {
-            alignItems: 'flex-end'
-        },
-        reviewTime: {
-            color: Colors.textGrey,
-            ...Fonts.tiny
-        },
-        btnLike: {
-            backgroundColor: Colors.backgroundGrey,
+        btnSendRequest: {
+            borderRadius: 8,
+            backgroundColor: Colors.blue_bland,
+            paddingVertical: 8,
             alignItems: 'center',
-            paddingHorizontal: Metrics.regular,
-            paddingVertical: Metrics.tiny / 2,
+            flex: 1
+        },
+        btnSendRequestText: {
+            color: Colors.white
+        },
+        btnSave: {
+            paddingLeft: 16,
+            marginLeft: 16
+        },
+        ////---------
+        inputBox: {
             marginTop: Metrics.tiny,
-            borderRadius: Metrics.tiny
+            marginBottom: Metrics.small,
+            backgroundColor: Colors.white,
+            borderRadius: Metrics.small,
+            // paddingHorizontal: Metrics.small
         },
-        icLike: {
-            width: Metrics.regular,
-            height: Metrics.regular,
-            tintColor: Colors.white
+        textInput: {
+            paddingVertical: Metrics.small,
+            color: Colors.text,
+            ...Fonts.medium,
+            borderWidth: 0.4,
+            borderColor: Colors.textGrey
         },
-        reviewContent: {
-            marginTop: Metrics.regular
+        ///--------
+
+        backdrop: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(193, 193, 193, 0.7)',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
-        reviewContentText: {
-            color: Colors.white,
-            fontWeight: '300',
-            ...Fonts.medium
+        popuppView: {
+            width: width - 24,
+            backgroundColor: Colors.white,
+            padding: 12,
+            borderRadius: 8,
+            marginHorizontal: 12,
+        },
+        postInfoView: {
+            flexDirection: 'row',
+            // borderWidth: 0.3,
+            // borderColor: Colors.textGrey,
+            borderRadius: 4,
+            overflow: 'hidden',
+            alignItems: 'center',
+            backgroundColor: 'rgb(247, 247, 247)'
+        },
+        postInfoRight: {
+            // width: '100%',
+            flex: 1,
+            paddingRight: 8
+        },
+        postTitle: {
+            width: '100%',
+        },
+        postUsername: {
+            fontStyle: 'italic',
+            fontSize: 12,
+            color: '#38445b'
+        },
+        requestImage: {
+            width: '20%',
+            aspectRatio: 16 / 9,
+            marginRight: 8
+        },
+        requestContent: {
+            marginTop: 12
+        },
+        btnPopup: {
+            backgroundColor: Colors.blue_bland,
+            borderRadius: 4,
+            paddingVertical: 8,
+            alignItems: 'center',
+        },
+        btnPopupText: {
+            color: Colors.white
         }
+
 
     })
 };

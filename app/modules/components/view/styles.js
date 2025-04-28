@@ -18,16 +18,24 @@ const createStyles = (isDarkTheme) => {
       tintColor: Colors.textGrey
     },
     icMedium: {
-      width: Metrics.medium,
-      height: Metrics.medium,
-      marginVertical: Metrics.tiny,
+      width: 28,
+      height: 28,
+      marginBottom: Metrics.tiny / 2,
       tintColor: Colors.textGrey
+    },
+    icMessage: {
+      width: Metrics.large,
+      height: Metrics.large,
+      tintColor: Colors.textGrey,
+      // marginTop: -4,
+      marginBottom: 2
     },
     btnFooter: {
       // flex: 1,
       paddingHorizontal: Metrics.regular,
       paddingVertical: Metrics.tiny,
       alignItems: 'center',
+      // borderWidth: 1,
     },
     textFooter: {
       color: Colors.textGrey,

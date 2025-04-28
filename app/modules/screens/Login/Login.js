@@ -28,7 +28,6 @@ import storage from "../../../libs/storage";
 import { storageKeys } from "../../../libs/constants";
 import { createUser, getUser } from "../../../service/userService";
 
-
 const Login = (props) => {
 
   const navigation = useNavigation();
@@ -73,9 +72,7 @@ const Login = (props) => {
           email: user.email, // Email
           photoURL: user.photoURL, // URL ảnh đại diện
           phoneNumber: user.phoneNumber ? user.phoneNumber : "", // Số điện thoại (tùy chọn)
-          address: "", // Địa chỉ (tùy chọn)
-          bio: "", // Mô tả ngắn về người dùng (tùy chọn)
-          fcmTokens: [], // Danh sách token thông báo Firebase Cloud Messaging
+          fcmTokens: [] // Danh sách token thông báo Firebase Cloud Messaging
         }
         const responseCreateUser = await createUser(userParam);
         console.log('responseCreateUser: ', JSON.stringify(responseCreateUser));

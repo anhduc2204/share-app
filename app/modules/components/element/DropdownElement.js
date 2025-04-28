@@ -70,7 +70,7 @@ const DropdownElement = ({ data, value, onChange, placeholder }) => {
           }}
         >
           <Image
-            source={Images.ic_whiteArrow}
+            source={Images.icDropdown}
             style={[
               styles.iconRightSelection,
               { transform: [{ scaleY: isToggle ? -1 : 1 }] }
@@ -99,6 +99,7 @@ const DropdownElement = ({ data, value, onChange, placeholder }) => {
                 <View>
                   {data.map((item, index) => (
                     <Pressable
+                      key={`dropdow${index}`}
                       onPressIn={() => { setPressedId(index) }}
                       onPressOut={() => { setPressedId(undefined) }}
                       style={[

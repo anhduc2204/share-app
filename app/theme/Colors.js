@@ -39,7 +39,7 @@ export default {
     textReader: '#000080',
 
     background: "#ffffff",
-    backgroundGrey: "#f6f7f9",
+    backgroundGrey: "#ebebeb",
     secondaryBackground: "#FDC592",
     fourthBackground: '#f3f3f3',
     thirdBackground: "#F5F5F5",

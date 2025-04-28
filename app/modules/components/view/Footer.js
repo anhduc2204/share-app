@@ -17,15 +17,16 @@ import { SafeAreaInsetsContext, SafeAreaView } from "react-native-safe-area-cont
 import { useTheme } from "@app/modules/components/context/ThemeContext";
 import createStyles from "./styles";
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Images } from "../../../theme";
+import { Images, Colors as Themes } from "../../../theme";
 import i18n from "@app/i18n/i18n";
 
 
-const Footer = (props) => {
+const Footer = ({ screen }) => {
 
   const navigation = useNavigation();
   const [dimensions, setDimensions] = useState(Dimensions.get("window"));
   const { isDarkTheme } = useTheme();
+  const Colors = Themes[isDarkTheme ? 'darkMode' : 'lightMode'];
   const styles = createStyles(isDarkTheme, dimensions.width, dimensions.height);
 
   const handleNavigation = (screen) => {
@@ -39,25 +40,29 @@ const Footer = (props) => {
           < >
             <View style={styles.footer}>
               <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
-                <Image source={Images.icHome} style={styles.icLarge} />
-                <Text style={styles.textFooter}>{i18n.t(`overview.home`)}</Text>
+                <Image source={Images.icHome} style={[styles.icLarge, screen === 'Overview' ? { tintColor: Colors.blue_bland } : {}]} />
+                <Text style={[styles.textFooter, screen === 'Overview' ? { color: Colors.blue_bland } : {}]}>Trang chủ</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
-                <Image source={Images.icHistory} style={styles.icLarge} />
-                <Text style={styles.textFooter}>Lịch sử</Text>
+                <Image source={Images.icActivate} style={[styles.icMedium, screen === 'Activate' ? { tintColor: Colors.blue_bland } : {}]} />
+                <Text style={[styles.textFooter, screen === 'Activate' ? { color: Colors.blue_bland } : {}]}>Hoạt động</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
+              {/* <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
                 <Image source={Images.icHistory} style={styles.icLarge} />
                 <Text style={styles.textFooter}>Xem sau</Text>
+              </TouchableOpacity> */}
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Post')}>
+                <Image source={Images.icHistory} style={[styles.icLarge, screen === 'Post' ? { tintColor: Colors.blue_bland } : {}]} />
+                <Text style={[styles.textFooter, screen === 'Post' ? { color: Colors.blue_bland } : {}]}>Bài đăng</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
-                <Image source={Images.icHistory} style={styles.icLarge} />
-                <Text style={styles.textFooter}>Tin nhắn</Text>
+                <Image source={Images.icMessage} style={[styles.icMessage, screen === 'Message' ? { tintColor: Colors.blue_bland } : {}]} />
+                <Text style={[styles.textFooter, screen === 'Message' ? { color: Colors.blue_bland } : {}]}>Tin nhắn</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Profile')}>
+              {/* <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Profile')}>
                 <Image source={Images.icUser} style={styles.icMedium} />
                 <Text style={styles.textFooter}>{i18n.t(`overview.me`)}</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </>
         )}

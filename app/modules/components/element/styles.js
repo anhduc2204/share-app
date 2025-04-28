@@ -11,7 +11,7 @@ const createStyles = (isDarkTheme, width, height) => {
     seclectedView: {
       borderWidth: 1,
       borderRadius: Metrics.small,
-      borderColor: Colors.border,
+      borderColor: Colors.textGrey,
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
@@ -51,11 +51,13 @@ const createStyles = (isDarkTheme, width, height) => {
       backgroundColor: 'transparent',
     },
     optionList: {
-      borderWidth: 1,
-      borderColor: Colors.border,
+      borderWidth: 0.5,
+      borderColor: Colors.textGrey,
       backgroundColor: Colors.backgroundGrey,
       borderRadius: Metrics.small,
-      height: height * 0.3
+      // height: height * 0.3
+      overflow: 'hidden',
+      paddingBottom: Metrics.normal
     },
     optionBtn: {
       paddingHorizontal: Metrics.regular,
