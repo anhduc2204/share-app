@@ -18,6 +18,9 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import Profile from "./modules/screens/Profile/Profile";
 import { AuthProvider } from "./modules/components/context/AuthContext";
 import Post from "./modules/screens/Post/Post";
+import ChatList from "./modules/screens/ChatList/ChatList";
+import Activate from "./modules/screens/Activate/Activate";
+import Notification from "./modules/screens/Notification/Notification";
 
 
 const Application = (props) => {
@@ -68,6 +71,9 @@ const Application = (props) => {
                       <Stack.Screen name="Overview" component={Overview} />
                       <Stack.Screen name="Profile" component={Profile} />
                       <Stack.Screen name="Post" component={Post} />
+                      <Stack.Screen name="ChatList" component={ChatList} />
+                      <Stack.Screen name="Activate" component={Activate} />
+                      <Stack.Screen name="Notification" component={Notification} />
                     </Stack.Navigator>
                   }
                   <FlashMessage position="top" style={{ marginTop: 16 }} />

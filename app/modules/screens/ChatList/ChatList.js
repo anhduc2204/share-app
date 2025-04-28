@@ -5,12 +5,17 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import moment from 'moment';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useAuth } from '../../components/context/AuthContext';
+import { useTheme } from '../../components/context/ThemeContext';
+import createStyles from './styles';
+import Footer from '../../components/view/Footer';
 
 const ChatList = ({ }) => {
   const navigation = useNavigation();
@@ -26,31 +31,35 @@ const ChatList = ({ }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('chats')
-      .where('participants', 'array-contains', user.uid)
-      .orderBy('lastMessageTimestamp', 'desc')
-      .onSnapshot(snapshot => {
-        const chatList = [];
-        snapshot.forEach(doc => {
-          const chatData = doc.data();
-          // Lấy ID của người còn lại trong cuộc trò chuyện
-          const otherUserId = chatData.participants.find(id => id !== user.uid);
+    if (user) {
+      const unsubscribe = firestore()
+        .collection('chats')
+        .where('participants', 'array-contains', user.uid)
+        .orderBy('lastMessageTimestamp', 'desc')
+        .onSnapshot(snapshot => {
+          if (snapshot && !snapshot.empty) {
+            const chatList = [];
+            snapshot.forEach(doc => {
+              const chatData = doc.data();
+              const otherUserId = chatData.participants.find(id => id !== user.uid);
 
-          chatList.push({
-            id: doc.id,
-            otherUserId,
-            lastMessage: chatData.lastMessage,
-            lastMessageTimestamp: chatData.lastMessageTimestamp,
-            unreadCount: chatData.unreadCount[user.uid] || 0
-          });
-        });
+              chatList.push({
+                id: doc.id,
+                otherUserId,
+                lastMessage: chatData.lastMessage,
+                lastMessageTimestamp: chatData.lastMessageTimestamp,
+                unreadCount: chatData.unreadCount ? (chatData.unreadCount[user.uid] || 0) : 0
+              });
+            });
+            setChats(chatList);
+          } else {
+            setChats([]);
+          }
+          setLoading(false);
+        })
 
-        setChats(chatList);
-        setLoading(false);
-      });
-
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, [user]);
 
   // Lấy thông tin người dùng để hiển thị tên
@@ -141,6 +150,7 @@ const ChatList = ({ }) => {
           contentContainerStyle={styles.listContainer}
         />
       )}
+      <Footer screen={'ChatList'} />
     </View>
   );
 };

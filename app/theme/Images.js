@@ -53,6 +53,8 @@ export default {
   icDropdown: require('@app/assets/images/ic_dropdown.png'),
   icActivate: require('@app/assets/images/ic_activate.png'),
   icMessage: require('@app/assets/images/ic_message.png'),
+  icBell: require('@app/assets/images/ic_bell.png'),
+  icChat: require('@app/assets/images/ic_chat.png'),
   //
 
 };

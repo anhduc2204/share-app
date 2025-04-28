@@ -43,7 +43,7 @@ const Footer = ({ screen }) => {
                 <Image source={Images.icHome} style={[styles.icLarge, screen === 'Overview' ? { tintColor: Colors.blue_bland } : {}]} />
                 <Text style={[styles.textFooter, screen === 'Overview' ? { color: Colors.blue_bland } : {}]}>Trang chủ</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Activate')}>
                 <Image source={Images.icActivate} style={[styles.icMedium, screen === 'Activate' ? { tintColor: Colors.blue_bland } : {}]} />
                 <Text style={[styles.textFooter, screen === 'Activate' ? { color: Colors.blue_bland } : {}]}>Hoạt động</Text>
               </TouchableOpacity>
@@ -55,9 +55,9 @@ const Footer = ({ screen }) => {
                 <Image source={Images.icHistory} style={[styles.icLarge, screen === 'Post' ? { tintColor: Colors.blue_bland } : {}]} />
                 <Text style={[styles.textFooter, screen === 'Post' ? { color: Colors.blue_bland } : {}]}>Bài đăng</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Overview')}>
-                <Image source={Images.icMessage} style={[styles.icMessage, screen === 'Message' ? { tintColor: Colors.blue_bland } : {}]} />
-                <Text style={[styles.textFooter, screen === 'Message' ? { color: Colors.blue_bland } : {}]}>Tin nhắn</Text>
+              <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('ChatList')}>
+                <Image source={Images.icMessage} style={[styles.icMessage, screen === 'ChatList' ? { tintColor: Colors.blue_bland } : {}]} />
+                <Text style={[styles.textFooter, screen === 'ChatList' ? { color: Colors.blue_bland } : {}]}>Tin nhắn</Text>
               </TouchableOpacity>
               {/* <TouchableOpacity style={styles.btnFooter} onPress={() => handleNavigation('Profile')}>
                 <Image source={Images.icUser} style={styles.icMedium} />

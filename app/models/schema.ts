@@ -41,6 +41,7 @@ export interface PostModel {
   };
   status?: 'available' | 'pending' | 'completed'; // Trạng thái bài đăng
   recipientId?: string; // ID của người nhận đồ (nếu status là "completed")
+  requesterList?: string[]; // ID của các người yêu cầu nhận
   requestCount?: number; // Số lượng yêu cầu nhận
   viewCount?: number; // Số lượt xem
   saveCount?: number; // Số lượt lưu
@@ -56,9 +57,12 @@ export interface RequestModel {
   id?: string; // ID của yêu cầu
   postId: string; // ID của bài đăng
   postTitle: string; // Tiêu đề bài đăng (để dễ truy vấn)
+  postDesc: string;
   postImage: string; // Ảnh đầu tiên của bài đăng (để dễ hiển thị)
   requesterId: string; // ID của người gửi yêu cầu
+  requesterName: string; 
   ownerId: string; // ID của người sở hữu bài đăng
+  ownerName: string;
   message?: string; // Tin nhắn từ người yêu cầu
   responseStatus?: 'accepted' | 'rejected', // Trạng thái phản hồi của chủ bài đăng
   status?: 'pending' | 'completed', // Trạng thái của yêu cầu

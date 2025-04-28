@@ -49,8 +49,9 @@ const Overview = (props) => {
   const styles = createStyles(isDarkTheme, dimensions.width, dimensions.height);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState();
-  const [requestItem, setRequestItem] = useState(undefined);
+  const [requestPost, setRequestPost] = useState(undefined);
   const [isSending, setIsSending] = useState(false);
+  const [messageAlert, setMessageAlert] = useState(undefined)
 
   const inputRef = useRef(null);
 
@@ -58,10 +59,25 @@ const Overview = (props) => {
     loadData();
   }, [])
 
+  useEffect(() => {
+    if (messageAlert) {
+      const timeout = setTimeout(() => {
+        setMessageAlert(undefined);
+      }, 2500)
+
+      return () => clearTimeout(timeout);
+    }
+  }, [messageAlert])
+
   const loadData = async () => {
     const response = await getAllPost();
     // console.log('all post : ------ ', response);
-    setData(response);
+    if (user) {
+      const filter = response.filter(post => !post.requesterList?.includes(user.uid));
+      setData(filter);
+    } else {
+      setData(response);
+    }
     setIsLoading(false);
   }
 
@@ -78,27 +94,36 @@ const Overview = (props) => {
 
   const handleSend = async (input) => {
     setIsSending(true);
-    const param = {
-      postId: requestItem.id,
-      postTitle: requestItem.title,
-      postImage: requestItem.images[0] || [],
+    const requestModel = {
+      postId: requestPost.id,
+      postTitle: requestPost.title,
+      postDesc: requestPost.description,
+      postImage: requestPost.images[0] || [],
       requesterId: user.uid,
-      ownerId: requestItem.userId,
+      ownerName: requestPost.userName,
+      requesterName: user.displayName,
+      ownerId: requestPost.userId,
       message: input.requestMessage,
     }
-    const response = await sendRequest(param);
-    // if(response)
-    console.log(response);
+    const response = await sendRequest(requestModel, requestPost);
+    if (response) {
+      setData(prev => prev.filter(post => post.id !== requestPost.id));
+      setMessageAlert('Gửi yêu cầu thành công!')
+    } else {
+      setMessageAlert('Gửi yêu cầu thất bại!')
+    }
     setIsSending(false);
+    closePopupRequest();
+    console.log(response);
   }
 
   const showPopupRequest = (item) => {
     if (user) {
-      setRequestItem(item);
+      setRequestPost(item);
     }
   }
   const closePopupRequest = () => {
-    setRequestItem(undefined);
+    setRequestPost(undefined);
   }
 
   const renderTextInput = (name) => (
@@ -146,6 +171,10 @@ const Overview = (props) => {
           style={styles.inputText}
         />
       </View>
+      <TouchableOpacity style={styles.btnAlert} onPress={() => navigation.navigate('Notification')}>
+        <Image source={Images.icBell} style={styles.icBell} />
+        {/* <Text style={styles.textFooter}></Text> */}
+      </TouchableOpacity>
       <TouchableOpacity style={styles.btnProfile} onPress={() => navigation.navigate('Profile')}>
         <Image source={Images.icUser} style={styles.icMedium} />
         {/* <Text style={styles.textFooter}></Text> */}
@@ -171,12 +200,18 @@ const Overview = (props) => {
         <Text style={styles.itemAddress}>Vị trí: 264/47 Ngọc Thụy, Long Biên</Text>
       </View>
       <View style={styles.itemFooter}>
-        <TouchableOpacity style={styles.btnSendRequest} onPress={() => showPopupRequest(item)}>
-          <Text style={styles.btnSendRequestText}>Gửi yêu cầu nhận</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSave}>
-          <Image source={Images.icStar} style={styles.icStar} />
-        </TouchableOpacity>
+        {user && item.userId === user.uid ? (
+          <TouchableOpacity style={styles.btnSendRequest} onPress={() => navigation.navigate('Notification')}>
+            <Text style={styles.btnSendRequestText}>{item.requestCount} lượt gửi yêu cầu</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.btnSendRequest} onPress={() => showPopupRequest(item)}>
+            <Text style={styles.btnSendRequestText}>Gửi yêu cầu nhận</Text>
+          </TouchableOpacity>
+        )}
+        {/* <TouchableOpacity style={styles.btnSave}>
+          <Image source={Images.icChat} style={styles.icStar} />
+        </TouchableOpacity> */}
 
       </View>
 
@@ -216,8 +251,8 @@ const Overview = (props) => {
         <View style={styles.postInfoView}>
           <Image source={Images.icDefaultImage} style={styles.requestImage} />
           <View style={styles.postInfoRight}>
-            <Text style={styles.postTitle} numberOfLines={1}>{requestItem.title} sajgdasjbd asjdh adhajdha ashdhda ash</Text>
-            <Text style={styles.postUsername}>Người đăng: {requestItem.userName}</Text>
+            <Text style={styles.postTitle} numberOfLines={1}>{requestPost.title}</Text>
+            <Text style={styles.postUsername}>Người đăng: {requestPost.userName}</Text>
           </View>
         </View>
         <View style={styles.requestContent}>
@@ -225,12 +260,22 @@ const Overview = (props) => {
           {renderTextInput('requestMessage')}
 
           <TouchableOpacity style={styles.btnPopup} onPress={handleSubmit(handleSend)}>
-            <Text style={styles.btnPopupText}>Gửi</Text>
+            {isSending ? (
+              <ActivityIndicator size={'small'} color={'#ffffff'} />
+            ) : (
+              <Text style={styles.btnPopupText}>Gửi</Text>
+            )}
           </TouchableOpacity>
         </View>
       </Animated.View>
 
     </AnimatedPressable>
+  )
+
+  const renderMessageAlert = () => (
+    <View style={styles.messageAlertView}>
+      <Text style={styles.messageAlertText}>{messageAlert}</Text>
+    </View>
   )
 
   return (
@@ -244,7 +289,8 @@ const Overview = (props) => {
               {renderContent()}
               <Footer screen={'Overview'} />
               {/* {isShowLogin && <Login />} */}
-              {requestItem && renderPopupSendRequest()}
+              {requestPost && renderPopupSendRequest()}
+              {messageAlert && renderMessageAlert()}
             </View>
           </>
         )}

@@ -53,7 +53,18 @@ const createStyles = (isDarkTheme) => {
     ///
     content: {
       paddingHorizontal: Metrics.normal,
-      paddingTop: Metrics.regular
+      paddingTop: Metrics.regular,
+      flex: 1,
+    },
+    ///
+    emptyView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    emptyText: {
+      width: '80%',
+      textAlign: 'center'
     },
     ///
     cardView: {
@@ -114,23 +125,86 @@ const createStyles = (isDarkTheme) => {
       marginTop: 4
     },
     ///
-    cardFooter: {
-      marginTop: 12,
+    requesterNameView: {
+      flexDirection: 'row'
     },
-    icChat: {
-      width: 20,
-      height: 20,
-      tintColor: '#ffffff'
+    requesterNameText: {
+      fontWeight: '500'
     },
-    contactNowBtn: {
+    ///
+    btnResponse: {
+      flexDirection: 'row',
+      marginTop: 8,
+      justifyContent: 'flex-end'
+    },
+    btnResponseText: {
+      color: '#fff'
+    },
+    btnAccepted: {
       backgroundColor: Colors.blue_bland,
-      paddingVertical: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 6
+    },
+    btnRejected: {
+      marginRight: 12,
+      backgroundColor: Colors.red,
+      borderRadius: 6,
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+    },
+    popupConfirm: {
+      position: 'absolute',
+
+    },
+    backdrop: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(193, 193, 193, 0.7)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    popuppView: {
+      width: width - 24,
+      backgroundColor: Colors.white,
+      padding: 12,
       borderRadius: 8,
-      alignItems: 'center'
+      marginHorizontal: 12,
     },
-    contactNowText: {
+    popupContent: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    requesterName: {
+      fontWeight: '500'
+    },
+    popupConfirmBtn: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 12
+    },
+    popupBtnCancel: {
+      marginRight: 6,
+      backgroundColor: Colors.red,
+      borderRadius: 6,
+      width: '25%',
+      alignItems: 'center',
+      paddingVertical: 4,
+    },
+    popupBtnAccept: {
+      marginLeft: 6,
+      backgroundColor: Colors.blue_bland,
+      borderRadius: 6,
+      width: '25%',
+      alignItems: 'center',
+      paddingVertical: 4,
+    },
+    popupBtnAcceptText: {
       color: '#ffffff'
-    },
+    }
   })
 };
 

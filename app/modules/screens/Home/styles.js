@@ -40,8 +40,18 @@ const createStyles = (isDarkTheme) => {
         },
         btnProfile: {
             paddingRight: Metrics.normal,
-            paddingLeft: Metrics.icon,
+            paddingLeft: Metrics.regular,
             justifyContent: 'center'
+        },
+        icBell: {
+            width: 32,
+            height: 32,
+            tintColor: Colors.blue_bland
+        },
+        btnAlert: {
+            paddingRight: 4,
+            paddingLeft: 8,
+            justifyContent: 'center',
         },
         ///
         content: {
@@ -111,7 +121,7 @@ const createStyles = (isDarkTheme) => {
         icStar: {
             width: 28,
             height: 28,
-            tintColor: Colors.textGrey
+            tintColor: Colors.blue_bland
         },
         btnSendRequest: {
             borderRadius: 8,
@@ -199,7 +209,21 @@ const createStyles = (isDarkTheme) => {
         },
         btnPopupText: {
             color: Colors.white
-        }
+        },
+        ///
+        messageAlertView: {
+            position: 'absolute',
+            bottom: 64,
+            left: width / 6,
+            right: width / 6,
+            backgroundColor: '#38445b',
+            borderRadius: 8
+        },
+        messageAlertText: {
+            color: '#ffffff',
+            textAlign: 'center',
+            paddingVertical: 8,
+        },
 
 
     })
