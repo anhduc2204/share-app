@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -11,65 +11,93 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import moment from 'moment';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from '../../components/context/AuthContext';
 import { useTheme } from '../../components/context/ThemeContext';
 import createStyles from './styles';
 import Footer from '../../components/view/Footer';
+import { getUser } from '../../../service/userService';
+import { SafeAreaInsetsContext, SafeAreaView } from "react-native-safe-area-context";
+import { Image } from 'react-native';
+import { Images } from '../../../theme';
+import LoginRequest from '../Login/LoginRequest';
+import Login from '../Login/Login';
 
 const ChatList = ({ }) => {
   const navigation = useNavigation();
 
   const [dimensions, setDimensions] = useState(Dimensions.get("window"));
-  const { updateUser, user } = useAuth();
+  const { updateUser, user, isLoadedUser } = useAuth();
 
   const { isDarkTheme } = useTheme();
 
   const styles = createStyles(isDarkTheme, dimensions.width, dimensions.height);
 
   const [chats, setChats] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      const unsubscribe = firestore()
-        .collection('chats')
-        .where('participants', 'array-contains', user.uid)
-        .orderBy('lastMessageTimestamp', 'desc')
-        .onSnapshot(snapshot => {
-          if (snapshot && !snapshot.empty) {
-            const chatList = [];
-            snapshot.forEach(doc => {
-              const chatData = doc.data();
-              const otherUserId = chatData.participants.find(id => id !== user.uid);
-
-              chatList.push({
-                id: doc.id,
-                otherUserId,
-                lastMessage: chatData.lastMessage,
-                lastMessageTimestamp: chatData.lastMessageTimestamp,
-                unreadCount: chatData.unreadCount ? (chatData.unreadCount[user.uid] || 0) : 0
-              });
-            });
-            setChats(chatList);
-          } else {
-            setChats([]);
-          }
-          setLoading(false);
-        })
-
-      return () => unsubscribe();
+    if (isLoadedUser && user) {
+      setLoading(true);
+    } else {
+      setLoading(false);
     }
-  }, [user]);
+  }, [user, isLoadedUser])
+
+  useFocusEffect(
+    useCallback(() => {
+      let unsubscribe = null;
+
+      if (isLoadedUser && user) {
+        unsubscribe = firestore()
+          .collection('chats')
+          .where('participants', 'array-contains', user.uid)
+          .orderBy('lastMessageTimestamp', 'desc')
+          .onSnapshot(snapshot => {
+            if (snapshot) {
+              if (snapshot.size > 0) {
+                // Có dữ liệu thực sự
+                const chatList = [];
+                snapshot.forEach(doc => {
+                  const chatData = doc.data();
+                  const otherUserId = chatData.participants.find(id => id !== user.uid);
+
+                  chatList.push({
+                    id: doc.id,
+                    otherUserId: otherUserId,
+                    lastMessage: chatData.lastMessage,
+                    lastMessageTimestamp: chatData.lastMessageTimestamp,
+                    unreadCount: chatData.unreadCount ? (chatData.unreadCount[user.uid] || 0) : 0,
+                  });
+                });
+                setChats(chatList);
+              } else {
+                // ❗ Xác định rõ ràng rằng server không còn cuộc chat nào
+                console.log('Không còn cuộc chat nào.');
+                setChats([]);
+              }
+            }
+            setLoading(false);
+          });
+      }
+
+      return () => {
+        if (unsubscribe) {
+          unsubscribe(); // Dừng lắng nghe snapshot
+        }
+      };
+    }, [user, isLoadedUser])
+  );
+
 
   // Lấy thông tin người dùng để hiển thị tên
   useEffect(() => {
     const fetchUserDetails = async () => {
       for (const chat of chats) {
         if (!chat.otherUserName) {
-          const userDoc = await firestore().collection('users').doc(chat.otherUserId).get();
-          if (userDoc.exists) {
-            const userData = userDoc.data();
+          // const userDoc = await firestore().collection('users').doc(chat.otherUserId).get();
+          const userData = await getUser(chat.otherUserId);
+          if (userData) {
             setChats(prevChats =>
               prevChats.map(c =>
                 c.id === chat.id
@@ -106,6 +134,15 @@ const ChatList = ({ }) => {
     }
   };
 
+  const showLogin = () => {
+    setIsShowLogin(true);
+  }
+  const closeLogin = () => {
+    setIsShowLogin(false);
+  }
+
+  const [isShowLogin, setIsShowLogin] = useState(false);
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.chatItem}
@@ -128,17 +165,30 @@ const ChatList = ({ }) => {
     </TouchableOpacity>
   );
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
 
-  return (
-    <View style={styles.container}>
-      {chats.length === 0 ? (
+  // if (loading) {
+  //   return (
+  //     <View style={styles.loadingContainer}>
+  //       <ActivityIndicator size="large" color="#0000ff" />
+  //     </View>
+  //   );
+  // }
+
+  // console.log('chats: ', chats);
+  const renderHeader = (insets) => (
+    <View style={[styles.header, { paddingTop: insets.top }]}>
+      <TouchableOpacity style={styles.btnHeader} onPress={() => navigation.goBack()}>
+        <Image source={Images.icArrowLeft} style={styles.icBack} />
+      </TouchableOpacity>
+      <View style={[styles.titleView, { top: insets.top }]}>
+        <Text style={styles.titleText}>Tin nhắn</Text>
+      </View>
+    </View>
+  )
+  const renderBody = (insets) => (
+    <View style={{ flex: 1 }}>
+      {renderHeader(insets)}
+      {chats.length <= 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>Bạn chưa có cuộc trò chuyện nào</Text>
         </View>
@@ -150,13 +200,27 @@ const ChatList = ({ }) => {
           contentContainerStyle={styles.listContainer}
         />
       )}
-      <Footer screen={'ChatList'} />
     </View>
+  )
+
+  return (
+    <>
+      <SafeAreaInsetsContext.Consumer>
+        {(insets) => (
+          <View style={styles.container}>
+            {!user ? <LoginRequest showLogin={showLogin} /> : renderBody(insets)}
+            <Footer screen={'ChatList'} />
+            {isShowLogin &&
+              <Login closeLogin={closeLogin} />
+            }
+            {/* {renderHeader(insets)}
+      
+              <Footer screen={'ChatList'} /> */}
+          </View>
+        )}
+      </SafeAreaInsetsContext.Consumer>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-
-});
 
 export default ChatList;

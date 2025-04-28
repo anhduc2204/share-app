@@ -14,6 +14,7 @@ const createStyles = (isDarkTheme) => {
             width: width,
             backgroundColor: Colors.background,
             flexDirection: 'row',
+            justifyContent: 'flex-end',
             // alignItems: 'center',
             paddingLeft: Metrics.normal,
             // paddingBottom: Metrics.normal
@@ -41,6 +42,7 @@ const createStyles = (isDarkTheme) => {
         btnProfile: {
             paddingRight: Metrics.normal,
             paddingLeft: Metrics.regular,
+            paddingVertical: 8,
             justifyContent: 'center'
         },
         icBell: {
@@ -49,6 +51,7 @@ const createStyles = (isDarkTheme) => {
             tintColor: Colors.blue_bland
         },
         btnAlert: {
+            paddingVertical: 8,
             paddingRight: 4,
             paddingLeft: 8,
             justifyContent: 'center',

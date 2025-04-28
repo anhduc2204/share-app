@@ -123,13 +123,17 @@ const createStyles = (isDarkTheme) => {
       tintColor: '#ffffff'
     },
     contactNowBtn: {
-      backgroundColor: Colors.blue_bland,
-      paddingVertical: 6,
-      borderRadius: 8,
+      backgroundColor: '#007bff',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 5,
+      // marginVertical: 10,
       alignItems: 'center'
     },
     contactNowText: {
-      color: '#ffffff'
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 14,
     },
   })
 };

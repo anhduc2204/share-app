@@ -79,11 +79,11 @@ const Profile = (props) => {
         <Text style={styles.name}>{user.displayName}</Text>
       </View>
       <View style={styles.settingOption}>
-        <TouchableOpacity style={styles.btnOption}>
+        {/* <TouchableOpacity style={styles.btnOption}>
           <Image style={styles.iconOptionItem} source={Images.icPremium} />
           <Text style={styles.optionText}>{i18n.t(`setting.premium`)}</Text>
           <Image style={styles.icArrowRight} source={Images.icArrowRight} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.line} />
         <TouchableOpacity style={styles.btnOption}>
           <Image style={styles.iconOptionItem} source={Images.icSetting} />

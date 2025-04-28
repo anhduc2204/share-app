@@ -9,6 +9,35 @@ const createStyles = (isDarkTheme) => {
       flex: 1,
       backgroundColor: '#f5f5f5',
     },
+    ///
+    header: {
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      // justifyContent: 'space-between',
+      backgroundColor: Colors.background,
+    },
+    btnHeader: {
+      padding: Metrics.normal,
+      paddingRight: Metrics.icon
+    },
+    icBack: {
+      width: Metrics.icon,
+      height: Metrics.icon,
+    },
+    titleView: {
+      // position: 'absolute',
+      // left: 0,
+      // right: 0,
+      // bottom: 0,
+      // alignItems: 'center',
+      // justifyContent: 'center'
+    },
+    titleText: {
+      ...Fonts.regular,
+      ...Helpers.textBold
+    },
+    //
     loadingContainer: {
       flex: 1,
       justifyContent: 'center',

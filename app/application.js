@@ -21,6 +21,7 @@ import Post from "./modules/screens/Post/Post";
 import ChatList from "./modules/screens/ChatList/ChatList";
 import Activate from "./modules/screens/Activate/Activate";
 import Notification from "./modules/screens/Notification/Notification";
+import ChatRoom from "./modules/screens/ChatRoom/ChatRoom";
 
 
 const Application = (props) => {
@@ -72,6 +73,7 @@ const Application = (props) => {
                       <Stack.Screen name="Profile" component={Profile} />
                       <Stack.Screen name="Post" component={Post} />
                       <Stack.Screen name="ChatList" component={ChatList} />
+                      <Stack.Screen name="ChatRoom" component={ChatRoom} />
                       <Stack.Screen name="Activate" component={Activate} />
                       <Stack.Screen name="Notification" component={Notification} />
                     </Stack.Navigator>

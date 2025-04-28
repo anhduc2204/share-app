@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, Image, TouchableOpacity } from 'react-native';
 import { GiftedChat, Bubble, Send, InputToolbar } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -7,6 +7,8 @@ import { useTheme } from '../../components/context/ThemeContext';
 import createStyles from './styles';
 import { Dimensions } from 'react-native';
 import { useAuth } from '../../components/context/AuthContext';
+import { Images } from '../../../theme';
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 const ChatRoom = ({ route, navigation }) => {
 
@@ -24,11 +26,11 @@ const ChatRoom = ({ route, navigation }) => {
   // const currentUserAvatar = auth().currentUser.photoURL;
 
   // Thiết lập tiêu đề cho màn hình
-  useEffect(() => {
-    navigation.setOptions({
-      title: otherUserName || 'Chat',
-    });
-  }, [navigation, otherUserName]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     title: otherUserName || 'Chat',
+  //   });
+  // }, [navigation, otherUserName]);
 
   // Tạo hoặc lấy chatId nếu chưa có
   const getChatId = useCallback(async () => {
@@ -105,7 +107,7 @@ const ChatRoom = ({ route, navigation }) => {
               const messageData = {
                 _id: doc.id,
                 text: firebaseData.text,
-                createdAt: new Date(firebaseData.createdAt),
+                createdAt: firebaseData.createdAt ? firebaseData.createdAt.toDate() : new Date(),
                 user: {
                   _id: firebaseData.senderId,
                   name: firebaseData.senderId === user.uid ? user.displayName : otherUserName,
@@ -223,6 +225,9 @@ const ChatRoom = ({ route, navigation }) => {
       <InputToolbar
         {...props}
         containerStyle={styles.inputContainer}
+        textInputStyle={{
+          color: 'black',
+        }}
       />
     );
   };
@@ -235,24 +240,44 @@ const ChatRoom = ({ route, navigation }) => {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <GiftedChat
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: user.uid,
-          name: user.displayName,
-          avatar: Images.icAccount,
-        }}
-        renderBubble={renderBubble}
-        renderSend={renderSend}
-        renderInputToolbar={renderInputToolbar}
-        alwaysShowSend
-        scrollToBottom
-        placeholder="Nhập tin nhắn..."
-      />
+  const renderHeader = (insets) => (
+    <View style={[styles.header, { paddingTop: insets.top }]}>
+      <TouchableOpacity style={styles.btnHeader} onPress={() => navigation.goBack()}>
+        <Image source={Images.icArrowLeft} style={styles.icBack} />
+      </TouchableOpacity>
+      <View style={[styles.titleView]}>
+        <Text style={styles.titleText}>{otherUserName}</Text>
+      </View>
     </View>
+  )
+
+  return (
+    <>
+      <SafeAreaInsetsContext.Consumer>
+        {(insets) => (
+          < >
+            <View style={styles.container}>
+              {renderHeader(insets)}
+              <GiftedChat
+                messages={messages}
+                onSend={messages => onSend(messages)}
+                user={{
+                  _id: user.uid,
+                  name: user.displayName,
+                  avatar: Images.icAccount,
+                }}
+                renderBubble={renderBubble}
+                renderSend={renderSend}
+                renderInputToolbar={renderInputToolbar}
+                alwaysShowSend
+                scrollToBottom
+                placeholder="Nhập tin nhắn..."
+              />
+            </View>
+          </>
+        )}
+      </SafeAreaInsetsContext.Consumer>
+    </>
   );
 };
 

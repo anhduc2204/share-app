@@ -63,7 +63,7 @@ const createStyles = (isDarkTheme) => {
     icSecure: {
       width: Metrics.large * 4,
       height: Metrics.large * 4,
-      tintColor: Colors.backgroundGrey
+      tintColor: Colors.textGrey
     },
     requestText: {
       color: Colors.textGrey,

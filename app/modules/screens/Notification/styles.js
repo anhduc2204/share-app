@@ -69,7 +69,8 @@ const createStyles = (isDarkTheme) => {
     ///
     cardView: {
       padding: 8,
-      backgroundColor: '#FFF'
+      backgroundColor: '#FFF',
+      marginBottom: 12
     },
     popuppView: {
       width: width - 24,

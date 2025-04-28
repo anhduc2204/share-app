@@ -26,6 +26,7 @@ import { getUserRequests, updateRequest } from "../../../service/requestService"
 import createStyles from "./styles";
 import Animated, { FadeIn, FadeInUp, FadeOut, FadeOutUp } from "react-native-reanimated";
 import { Pressable } from "react-native";
+import NewChatButton from "../../components/view/NewChatButton/NewChatButton";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -79,13 +80,17 @@ const Notification = ({ }) => {
 
   const handleAccept = async () => {
     setIsLoading(true);
-    await updateRequest(requestConfirm.id, 'accept', '');
+    await updateRequest(requestConfirm.id, 'accepted', '');
     await loadData();
     setIsLoading(false);
     closePopupConfirm();
   }
-  const handleReject = () => {
-
+  const handleReject = async () => {
+    setIsLoading(true);
+    await updateRequest(requestConfirm.id, 'reject', '');
+    await loadData();
+    setIsLoading(false);
+    closePopupConfirm();
   }
 
   const showPopupConfirm = (message, request) => {
@@ -157,10 +162,15 @@ const Notification = ({ }) => {
           <Text style={styles.contentText}>{item.status === 'pending' ? 'Đang chờ' : 'Kết thúc'}</Text>
         </View>
         {item.responseStatus ? (
-          <View style={styles.statusView}>
-            <Text style={styles.statuslabel}>Trạng thái phản hồi: </Text>
-            <Text style={styles.contentText}>{item.responseStatus === 'accepted' ? 'Đã chấp nhận' : 'Từ chối'}</Text>
-          </View>
+          <>
+            <View style={styles.statusView}>
+              <Text style={styles.statuslabel}>Trạng thái phản hồi: </Text>
+              <Text style={[styles.contentText, { color: '#000080' }]}>{item.responseStatus === 'accepted' ? 'Đã chấp nhận' : 'Từ chối'}</Text>
+            </View>
+            {item.responseStatus === 'accepted' &&
+              <NewChatButton otherUserId={item.requesterId} otherUserName={item.requesterName} />
+            }
+          </>
         ) : (
           // <TouchableOpacity style={}>
 

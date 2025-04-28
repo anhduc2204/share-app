@@ -39,7 +39,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const Overview = (props) => {
 
   const navigation = useNavigation();
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, isLoadedUser } = useAuth();
 
 
   const [dimensions, setDimensions] = useState(Dimensions.get("window"));
@@ -56,8 +56,11 @@ const Overview = (props) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    loadData();
-  }, [])
+    if (isLoadedUser) {
+      setIsLoading(true);
+      loadData();
+    }
+  }, [user, isLoadedUser])
 
   useEffect(() => {
     if (messageAlert) {
@@ -163,14 +166,14 @@ const Overview = (props) => {
 
   const renderHeader = (insets) => (
     <View style={[styles.header, { paddingTop: insets.top }]}>
-      <View style={styles.inputSearchView}>
+      {/* <View style={styles.inputSearchView}>
         <Image source={Images.icSearch} style={styles.icSearch} />
         <TextInput
           placeholder="Tìm kiếm"
           placeholderTextColor={Colors.textGrey}
           style={styles.inputText}
         />
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.btnAlert} onPress={() => navigation.navigate('Notification')}>
         <Image source={Images.icBell} style={styles.icBell} />
         {/* <Text style={styles.textFooter}></Text> */}

@@ -65,7 +65,7 @@ export interface RequestModel {
   ownerName: string;
   message?: string; // Tin nhắn từ người yêu cầu
   responseStatus?: 'accepted' | 'rejected', // Trạng thái phản hồi của chủ bài đăng
-  status?: 'pending' | 'completed', // Trạng thái của yêu cầu
+  status?: 'pending' | 'progressing' | 'completed', // Trạng thái của yêu cầu
   createdAt?: string; // Thời gian gửi yêu cầu
   updatedAt?: string; // Thời gian cập nhật trạng thái
   responseMessage?: string; // Phản hồi từ chủ bài đăng (nếu có)

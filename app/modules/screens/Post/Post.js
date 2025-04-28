@@ -239,9 +239,9 @@ const Post = (props) => {
       <View style={[styles.titleView, { top: insets.top }]}>
         <Text style={styles.titleText}>Bài đăng</Text>
       </View>
-      <TouchableOpacity style={styles.historyBtn}>
+      {/* <TouchableOpacity style={styles.historyBtn}>
         <Text style={styles.historyText}>Lịch sử</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   )
 

@@ -35,7 +35,7 @@ export const updateRequest = async (requestId: string, responseStatus: string, r
   // Cập nhật trạng thái yêu cầu
   await ref.update({
     responseStatus,
-    status: 'completed',
+    status: responseStatus === 'accept' ? 'progressing' : 'completed',
     responseMessage,
     updatedAt: new Date().toISOString(),
   });
@@ -53,6 +53,22 @@ export const updateRequest = async (requestId: string, responseStatus: string, r
       updatedAt: new Date().toISOString(),
     });
   }
+};
+export const updateRequestComplete = async (requestId: string): Promise<void> => {
+  const ref = FirebaseDb.collection('requests').doc(requestId);
+  
+  // Lấy dữ liệu yêu cầu hiện tại
+  const requestSnapshot = await ref.get();
+  if (!requestSnapshot.exists) {
+    throw new Error('Request not found');
+  }
+  // const requestData = requestSnapshot.data() as RequestModel;
+
+  // Cập nhật trạng thái kết thúc yêu cầu
+  await ref.update({
+    status: 'completed',
+    updatedAt: new Date().toISOString(),
+  });
 };
 
 // Lấy yêu cầu theo bài đăng

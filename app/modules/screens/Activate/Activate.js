@@ -31,8 +31,9 @@ import { Colors as Themes, Images, Metrics } from "../../../theme";
 import { Controller, useForm } from "react-hook-form";
 import DropdownElement from "../../components/element/DropdownElement";
 import { createPost } from "../../../service/postService";
-import { getUserRequests } from "../../../service/requestService";
+import { getUserRequests, updateRequestComplete } from "../../../service/requestService";
 import { FlatList } from "react-native-gesture-handler";
+import NewChatButton from "../../components/view/NewChatButton/NewChatButton";
 
 const Activate = (props) => {
 
@@ -80,6 +81,13 @@ const Activate = (props) => {
     setIsShowLogin(false);
   }
 
+  const handleCompleteRequest = async (item) => {
+    setIsLoading(true);
+    await updateRequestComplete(item.id);
+    await loadData();
+    setIsLoading(false);
+  }
+
 
   const renderCard = (item, index) => (
     <View style={styles.cardView} key={`card${index}`}>
@@ -96,18 +104,26 @@ const Activate = (props) => {
         <Text style={styles.contentText}>{item.message}</Text>
         <View style={styles.statusView}>
           <Text style={styles.statuslabel}>Trạng thái yêu cầu: </Text>
-          <Text style={styles.contentText}>{item.status === 'pending' ? 'Đang chờ' : 'Kết thúc'}</Text>
+          <Text style={styles.contentText}>{item.status === 'pending' ? 'Đang chờ' : (item.status === 'progressing' ? 'Đang tiến hành' : 'Kết thúc')}</Text>
         </View>
         <View style={styles.statusView}>
           <Text style={styles.statuslabel}>Trạng thái phản hồi: </Text>
           <Text style={[styles.contentText, { color: '#000080' }]}>{!item.responseStatus ? '' : (item.responseStatus === 'accepted' ? 'Đã chấp nhận' : 'Từ chối')}</Text>
         </View>
-        <View style={styles.cardFooter}>
-          <TouchableOpacity style={styles.contactNowBtn}>
-            {/* <Image source={Images.icChat} style={styles.icChat} /> */}
-            <Text style={styles.contactNowText}>Liên hệ ngay</Text>
-          </TouchableOpacity>
-        </View>
+        {item.responseStatus === 'accepted' &&
+          <View style={styles.cardFooter}>
+            <NewChatButton otherUserId={item.ownerId} otherUserName={item.ownerName} />
+            {item.status !== 'completed' &&
+              <TouchableOpacity style={styles.contactNowBtn} onPress={() => handleCompleteRequest(item)}>
+                {isLoading ? (
+                  <ActivityIndicator size={'small'} color={'#ffffff'} />
+                ) : (
+                  <Text style={styles.contactNowText}>Hoàn thành</Text>
+                )}
+              </TouchableOpacity>
+            }
+          </View>
+        }
         {/* <Text style={styles.statuslabel}>Nội dung phản hồi:</Text>
         <Text style={styles.contentText}>{item.responseMessage ? item.responseMessage : ''}</Text> */}
       </View>

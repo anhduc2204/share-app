@@ -38,9 +38,9 @@ const LoginRequest = (props) => {
         <TouchableOpacity style={styles.btnRequestLogin} onPress={props.showLogin}>
           <Text style={styles.btnRequestLoginText}>{i18n.t(`login.login`)}</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.descText}>{i18n.t(`login.desc`)}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </>
   );
