@@ -108,9 +108,9 @@ const Activate = (props) => {
         </View>
         <View style={styles.statusView}>
           <Text style={styles.statuslabel}>Trạng thái phản hồi: </Text>
-          <Text style={[styles.contentText, { color: '#000080' }]}>{!item.responseStatus ? '' : (item.responseStatus === 'accepted' ? 'Đã chấp nhận' : 'Từ chối')}</Text>
+          <Text style={[styles.contentText, { color: '#000080' }]}>{!item.responseStatus ? '' : (item.responseStatus === 'accept' ? 'Đã chấp nhận' : 'Từ chối')}</Text>
         </View>
-        {item.responseStatus === 'accepted' &&
+        {item.responseStatus === 'accept' &&
           <View style={styles.cardFooter}>
             <NewChatButton otherUserId={item.ownerId} otherUserName={item.ownerName} />
             {item.status !== 'completed' &&

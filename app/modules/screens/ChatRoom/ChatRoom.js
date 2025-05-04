@@ -25,12 +25,6 @@ const ChatRoom = ({ route, navigation }) => {
   // const currentUserName = auth().currentUser.displayName;
   // const currentUserAvatar = auth().currentUser.photoURL;
 
-  // Thiết lập tiêu đề cho màn hình
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     title: otherUserName || 'Chat',
-  //   });
-  // }, [navigation, otherUserName]);
 
   // Tạo hoặc lấy chatId nếu chưa có
   const getChatId = useCallback(async () => {

@@ -80,7 +80,7 @@ const Notification = ({ }) => {
 
   const handleAccept = async () => {
     setIsLoading(true);
-    await updateRequest(requestConfirm.id, 'accepted', '');
+    await updateRequest(requestConfirm.id, 'accept', '');
     await loadData();
     setIsLoading(false);
     closePopupConfirm();
@@ -165,9 +165,9 @@ const Notification = ({ }) => {
           <>
             <View style={styles.statusView}>
               <Text style={styles.statuslabel}>Trạng thái phản hồi: </Text>
-              <Text style={[styles.contentText, { color: '#000080' }]}>{item.responseStatus === 'accepted' ? 'Đã chấp nhận' : 'Từ chối'}</Text>
+              <Text style={[styles.contentText, { color: '#000080' }]}>{item.responseStatus === 'accept' ? 'Đã chấp nhận' : 'Từ chối'}</Text>
             </View>
-            {item.responseStatus === 'accepted' &&
+            {item.responseStatus === 'accept' &&
               <NewChatButton otherUserId={item.requesterId} otherUserName={item.requesterName} />
             }
           </>
