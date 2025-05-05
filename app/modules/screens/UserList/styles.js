@@ -56,86 +56,50 @@ const createStyles = (isDarkTheme) => {
       paddingTop: Metrics.regular
     },
     ///
-    cardView: {
-      padding: 8,
-      backgroundColor: '#FFF',
-      marginBottom: 12
-    },
-    popuppView: {
-      width: width - 24,
+    inputBox: {
+      marginTop: Metrics.tiny,
+      marginBottom: Metrics.small,
       backgroundColor: Colors.white,
-      padding: 12,
-      borderRadius: 8,
-      marginHorizontal: 12,
+      borderRadius: Metrics.small,
+      paddingHorizontal: Metrics.small
     },
-    postInfoView: {
+    textInput: {
+      paddingVertical: Metrics.small,
+      color: Colors.text,
+      ...Fonts.regular
+    },
+    pickerBox: {
       flexDirection: 'row',
-      // borderWidth: 0.3,
-      // borderColor: Colors.textGrey,
-      borderRadius: 4,
-      overflow: 'hidden',
-      // alignItems: 'center',
-      backgroundColor: 'rgb(247, 247, 247)'
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: Metrics.tiny,
+      backgroundColor: Colors.background,
+      borderRadius: Metrics.small,
+      paddingVertical: Metrics.normal,
+      paddingHorizontal: Metrics.normal
     },
-    postInfoRight: {
-      // width: '100%',
-      flex: 1,
-      paddingRight: 8
+    pickerLabel: {
+      marginRight: Metrics.regular
     },
-    postTitle: {
-      width: '100%',
-    },
-    postDesc: {
-      width: '100%',
-      fontSize: 12,
-      color: 'rgb(136, 136, 136)'
-    },
-    postUsername: {
-      fontStyle: 'italic',
-      fontSize: 12,
-      color: '#38445b'
-    },
-    requestImage: {
-      width: '35%',
-      aspectRatio: 16 / 9,
-      marginRight: 8
-    },
-    requestContent: {
-      marginTop: 8,
-    },
-    contentText: {
-      color: 'rgb(136, 136, 136)',
-      fontSize: 12
-    },
-    statuslabel: {
-      fontSize: 12
-    },
-    statusView: {
-      flexDirection: 'row',
-      marginTop: 4
+    labelText: {
+      ...Helpers.textBoldfive,
+      opacity: 0.8,
+      color: Colors.text,
+      ...Fonts.regular
     },
     ///
-    cardFooter: {
-      marginTop: 12,
-    },
-    icChat: {
-      width: 20,
-      height: 20,
-      tintColor: '#ffffff'
-    },
-    contactNowBtn: {
-      backgroundColor: '#007bff',
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      borderRadius: 5,
-      // marginVertical: 10,
+    btnPost: {
+      backgroundColor: Colors.blue_bland,
+      paddingVertical: Metrics.normal,
+      borderRadius: Metrics.small,
+      marginTop: Metrics.normal,
       alignItems: 'center'
     },
-    contactNowText: {
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: 14,
-    },
+    postText: {
+      color: Colors.white,
+      ...Fonts.regular,
+      ...Helpers.textBoldfive
+    }
   })
 };
 

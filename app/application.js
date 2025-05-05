@@ -8,20 +8,15 @@ import storage from "@app/libs/storage";
 import i18n from "@app/i18n/i18n";
 import { ThemeProvider } from "./modules/components/context/ThemeContext";
 import { OrientationProvider } from "./modules/components/context/OrientationContext";
-import Overview from "./modules/screens/Home/Overview";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { navigationRef } from "./libs/RootNavigation";
 import FlashMessage from "react-native-flash-message";
 import { WEB_CLIENT_ID } from "./config/keys";
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import Profile from "./modules/screens/Profile/Profile";
 import { AuthProvider } from "./modules/components/context/AuthContext";
-import Post from "./modules/screens/Post/Post";
-import ChatList from "./modules/screens/ChatList/ChatList";
-import Activate from "./modules/screens/Activate/Activate";
-import Notification from "./modules/screens/Notification/Notification";
-import ChatRoom from "./modules/screens/ChatRoom/ChatRoom";
+import AddUser from "./modules/screens/AddUser/AddUser";
+import UserListScreen from "./modules/screens/UserList/UserList";
 
 
 const Application = (props) => {
@@ -64,18 +59,14 @@ const Application = (props) => {
                 <NavigationContainer ref={navigationRef}>
                   {
                     <Stack.Navigator
-                      initialRouteName="Overview"
+                      initialRouteName="UserListScreen"
                       screenOptions={{
                         headerShown: false,
                       }}
                     >
-                      <Stack.Screen name="Overview" component={Overview} />
-                      <Stack.Screen name="Profile" component={Profile} />
-                      <Stack.Screen name="Post" component={Post} />
-                      <Stack.Screen name="ChatList" component={ChatList} />
-                      <Stack.Screen name="ChatRoom" component={ChatRoom} />
-                      <Stack.Screen name="Activate" component={Activate} />
-                      <Stack.Screen name="Notification" component={Notification} />
+                      <Stack.Screen name="AddUser" component={AddUser} />
+                      <Stack.Screen name="UserListScreen" component={UserListScreen} />
+                      {/* <Stack.Screen name="UserList" component={Notification} /> */}
                     </Stack.Navigator>
                   }
                   <FlashMessage position="top" style={{ marginTop: 16 }} />

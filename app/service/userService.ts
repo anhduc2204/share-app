@@ -1,6 +1,11 @@
-import { UserModel } from '../models/schema';
+// import { UserModel } from '../models/schema';
+import { UserModel } from '../models/UserSchema';
 import { FirebaseDb } from './firebaseConfig';
 
+// import { FirebaseDb } from './firebaseConfig';
+// import { UserModel } from './userSchema';
+
+// Thêm người dùng mới
 export const createUser = async (user: UserModel) => {
   const ref = FirebaseDb.collection('users').doc(user.uid);
   await ref.set({
@@ -10,16 +15,39 @@ export const createUser = async (user: UserModel) => {
   });
 };
 
-export const getUser = async (uid: string) => {
-  const ref = FirebaseDb.collection('users').doc(uid);
-  const snapshot = await ref.get();
-  return snapshot.exists ? (snapshot.data() as UserModel) : null;
+// Lấy danh sách tất cả người dùng, sắp xếp theo tên
+export const getAllUsers = async (): Promise<UserModel[]> => {
+  const snapshot = await FirebaseDb.collection('users')
+    .orderBy('hoTen', 'asc')
+    .get();
+  
+  return snapshot.docs.map(doc => {
+    const data = doc.data();
+    return {
+      uid: doc.id,
+      hoTen: data.hoTen,
+      ngaySinh: data.ngaySinh,
+      heSoLuong: data.heSoLuong,
+      luongCB: data.luongCB,
+    } as UserModel;
+  });
 };
 
-export const updateUser = async (uid: string, data: Partial<UserModel>) => {
-  const ref = FirebaseDb.collection('users').doc(uid);
+// Tạo ID mới cho người dùng
+export const generateUserId = (): string => {
+  return FirebaseDb.collection('users').doc().id;
+};
+
+// Xóa người dùng
+export const deleteUser = async (uid: string): Promise<void> => {
+  await FirebaseDb.collection('users').doc(uid).delete();
+};
+
+// Cập nhật người dùng
+export const updateUser = async (user: UserModel): Promise<void> => {
+  const ref = FirebaseDb.collection('users').doc(user.uid);
   await ref.update({
-    ...data,
+    ...user,
     updatedAt: new Date().toISOString(),
   });
 };
